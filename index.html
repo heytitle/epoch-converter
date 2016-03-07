@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="mainApp">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Epoch Converter</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <script src="//momentjs.com/downloads/moment.min.js"></script>
+  <!-- <script src="//momentjs.com/downloads/moment-timezone.min.js"></script> -->
+  <script src="//momentjs.com/downloads/moment-timezone-with-data-2010-2020.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+  <script src="app.js"></script>
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="images/favicon.png">
+
+  <style>
+        .duration {
+            margin-left: 5px;
+        }
+
+        .duration .fa {
+            margin-right: 2px;
+        }
+
+        .country {
+       //     margin-left: 50px;
+        }
+
+        .result {
+            font-size: 20px;
+        }
+
+        .result h2 {
+            margin-bottom: 10px;
+        }
+        .date {
+            font-size: 15px;
+            font-weight: bold;
+        }
+  </style>
+
+</head>
+<body>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container" ng-controller="MainController">
+    <div class="row">
+      <div class="column" style="margin-top: 10%">
+        <h2>EPOCH TO TIME</h2>
+        <input type="text" placeholder="Start Epoch" ng-model="start"/>
+        <i class="fa fa-long-arrow-right"></i>
+        <input type="text" placeholder="Finish Epoch" ng-model="finish"/> 
+        <span class="duration" ng-if="finish > start">
+            <i class="fa fa-clock-o"></i>
+            {{ parseInt( (finish-start)/60 ) }} mins
+        </span><br>
+      </div>
+    </div>
+    <div class="row result">
+        <h2>IN</h2>
+        <div class="country" ng-repeat="c in list">
+            {{c}}
+            <span ng-if="start" class="date">
+                <i class="fa fa-clock-o"></i>
+                {{ moment(start*1000).tz(c).format("ddd Do MMM YYYY HH:mm") }}
+                <span ng-if="finish">
+                    <i class="fa fa-long-arrow-right"></i>
+                     {{ moment(finish*1000).tz(c).format("ddd Do MMM YYYY HH:mm") }}
+                </span>
+            </span>
+        </div>
+    </div>
+  </div>
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>
