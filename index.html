@@ -13,6 +13,7 @@
   <!-- <script src="//momentjs.com/downloads/moment-timezone.min.js"></script> -->
   <script src="//momentjs.com/downloads/moment-timezone-with-data-2010-2020.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+  <script src="//cdn.rawgit.com/grevory/angular-local-storage/master/dist/angular-local-storage.min.js"></script>
   <script src="app.js"></script>
 
   <!-- Mobile Specific Metas
@@ -43,7 +44,7 @@
         }
 
         .country {
-       //     margin-left: 50px;
+            cursor: pointer;
         }
 
         .result {
@@ -56,6 +57,15 @@
         .date {
             font-size: 15px;
             font-weight: bold;
+        }
+
+        .tz-selector {
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
+        .note {
+            font-size: 10px;
         }
   </style>
 
@@ -79,7 +89,7 @@
     </div>
     <div class="row result">
         <h2>IN</h2>
-        <div class="country" ng-repeat="c in list">
+        <div class="country" ng-repeat="c in list" ng-dblclick="remove($index)">
             {{c}}
             <span ng-if="start" class="date">
                 <i class="fa fa-clock-o"></i>
@@ -90,6 +100,11 @@
                 </span>
             </span>
         </div>
+        <select class="tz-selector" ng-model="tz_selector" ng-change="addTimeZone(t)">
+            <option value="none">-- add timezone</option>
+            <option value="" ng-repeat="t in tz" ng-value="t" >{{t}}</option>
+        </select>
+        <div class="note">NOTE : You can remove a timezone by double-click</div>
     </div>
   </div>
 
